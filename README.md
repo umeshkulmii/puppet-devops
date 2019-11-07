@@ -1,8 +1,10 @@
 # puppet-devops
-Devops Assignment
+## Devops Assignment
 
-TODO:
+### TODO:
+
 Modify the manifest environments/test/manifests/site.pp to - 
+
 1. Create below directory structure using puppet.
 ```
 /var/www/
