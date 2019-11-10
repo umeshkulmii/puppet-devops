@@ -1,6 +1,13 @@
-node "test-site" {
+node "test" {
 
-  file { ['/var/www']:
+  file {'/var/www':
+    ensure => 'directory',
+    owner   => root,
+    group   => root,
+    mode    => '755'
+  }
+
+  file {'/var/www/test-app/current':
     ensure => 'directory',
     owner   => root,
     group   => root,
@@ -9,10 +16,35 @@ node "test-site" {
 
   file {'/var/www/test-app/current/index.html':
     ensure => 'file',
-    content => 'This is a sample app.',
+    content => 'This is devops assignment task1 and task3	',
     owner   => root,
     group   => root,
     mode    => '755'
+  }
+
+  file {'/var/www/test-app':
+    ensure => 'directory',
+    owner   => root,
+    group   => root,
+    mode    => '755'
+  }
+
+  file {'/var/www/test-app/releases':
+    ensure => 'directory',
+    owner   => root,
+    group   => root,
+    mode    => '0644'
+  }
+
+  file {'/var/www/test-app/shared':
+    ensure => 'directory',
+    owner   => root,
+    group   => root,
+    mode    => '0644'
+  }
+
+  package {'nginx':
+  ensure => installed
   }
 
   class { 'nginx':
@@ -31,7 +63,7 @@ node "test-site" {
     owner => 'root',
     group => 'root',
     mode => '0644',
-    source => 'puppet:///modules/nginx/example.com.crt',
+    source => '/etc/ssl/certs/example.com.crt',
   }
 
   file { '/etc/nginx/ssl/example.com.key':
@@ -39,7 +71,7 @@ node "test-site" {
     owner => 'root',
     group => 'root',
     mode => '0644',
-    source => 'puppet:///modules/nginx/example.com.key',
+    source => '/etc/ssl/private/example.com.key',
   }
 
   $server_name = "testapi.example.com"
